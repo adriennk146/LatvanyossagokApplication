@@ -71,12 +71,14 @@ namespace LatvanyossagokApplication
             using (var reader = comm.ExecuteReader())
             {
                 varosokLstBx.Items.Clear();
+                varosokCOB.Items.Clear();
                 while (reader.Read())
                 {
                     string nev = reader.GetString("nev");
                     int lakossag = reader.GetInt32("lakossag");
                     Varos v1 = new Varos(nev, lakossag);
-                    varosokLstBx.Items.Add(v1.toString());
+                    varosokLstBx.Items.Add(v1.ToString());
+                    varosokCOB.Items.Add(v1.Nev);
                 }
                 reader.Close();
             }
@@ -93,7 +95,7 @@ namespace LatvanyossagokApplication
                 mehet = false;
                 MessageBox.Show("Nem adott meg város nevet!");
             }
-            if (lakossagNUD.Value == null || lakossagNUD.Value == 0)
+            if (lakossagNUD.Value == 0)
             {
                 MessageBox.Show("Nem adta meg a város lakosságát!");
                 mehet = false;
@@ -104,6 +106,8 @@ namespace LatvanyossagokApplication
                 lakossag = Convert.ToInt32(lakossagNUD.Value);
                 Varos v1 = new Varos(varos, lakossag);
                 varosHozzaadAdatbazishoz(varos, lakossag);
+                varosTB.Text = "";
+                lakossagNUD.Value = 0;
             }
         }
 
@@ -150,6 +154,80 @@ namespace LatvanyossagokApplication
                 ar = Convert.ToInt32(arNUD.Value);
                 varos = varosokCOB.SelectedItem.ToString();
                 Latvanyossag l1 = new Latvanyossag(nev, leiras, ar, varos);
+            }
+        }
+        
+        private void varosokLstBx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            torlesBtn.Visible = true;
+            modositasBtn.Visible = true;
+           
+        }
+
+        private void torlesBtn_Click(object sender, EventArgs e)
+        {
+            string value = varosokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev = adatok[0];
+            string sql = @"DELETE FROM varosok WHERE nev LIKE '" + nev + "';";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var reader = comm.ExecuteReader()) ;
+            VarosAdatokBetolt();
+            torlesBtn.Visible = false;
+        }
+
+        private void modositasBtn_Click(object sender, EventArgs e)
+        {
+            ujVarosBtn.Visible = false;
+            mMentesBtn.Visible = true;
+            string value = varosokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev = adatok[0];
+            string sql = @"SELECT nev, lakossag
+                            FROM varosok
+                            WHERE nev LIKE '" + nev + "';";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var reader = comm.ExecuteReader())
+            {
+                reader.Read();
+                varosTB.Text = reader.GetString("nev");
+                lakossagNUD.Value = reader.GetInt32("lakossag");
+            }
+        }
+
+        private void mMentesBtn_Click(object sender, EventArgs e)
+        {
+            string value = varosokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev = adatok[0];
+            string varos;
+            int lakossag;
+            bool mehet = true;
+            if (varosTB.Text == "")
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg város nevet!");
+            }
+            if (lakossagNUD.Value == 0)
+            {
+                MessageBox.Show("Nem adta meg a város lakosságát!");
+                mehet = false;
+            }
+            if (mehet)
+            {
+                varos = varosTB.Text;
+                lakossag = Convert.ToInt32(lakossagNUD.Value);
+                string sql = @"UPDATE varosok SET nev ='" + varos + "', lakossag ='" + lakossag + "' WHERE nev LIKE '" + nev + "';";
+                var comm = conn.CreateCommand();
+                comm.CommandText = sql;
+                using (var reader = comm.ExecuteReader()) ;
+                VarosAdatokBetolt();
+                varosTB.Text = "";
+                lakossagNUD.Value = 0;
+                mMentesBtn.Visible = false;
+                ujVarosBtn.Visible = true;
             }
         }
     }

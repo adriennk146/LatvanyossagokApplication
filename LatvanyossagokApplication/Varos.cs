@@ -20,7 +20,7 @@ namespace LatvanyossagokApplication
         public string Nev { get => nev; set => nev = value; }
         public int Lakossag { get => lakossag; set => lakossag = value; }
 
-        public string toString()
+        public string ToString()
         {
             return this.nev + " - Lakosság: " + this.lakossag+" fő";
         }

@@ -29,22 +29,26 @@
         private void InitializeComponent()
         {
             this.ujvarosGB = new System.Windows.Forms.GroupBox();
-            this.varosTB = new System.Windows.Forms.TextBox();
-            this.lakossagNUD = new System.Windows.Forms.NumericUpDown();
-            this.varosNevLbl = new System.Windows.Forms.Label();
-            this.lakossagLbl = new System.Windows.Forms.Label();
             this.ujVarosBtn = new System.Windows.Forms.Button();
+            this.lakossagLbl = new System.Windows.Forms.Label();
+            this.varosNevLbl = new System.Windows.Forms.Label();
+            this.lakossagNUD = new System.Windows.Forms.NumericUpDown();
+            this.varosTB = new System.Windows.Forms.TextBox();
             this.latvanyossagGB = new System.Windows.Forms.GroupBox();
+            this.varosCBLbl = new System.Windows.Forms.Label();
+            this.varosokCOB = new System.Windows.Forms.ComboBox();
+            this.leirasTB = new System.Windows.Forms.TextBox();
+            this.leirasLbl = new System.Windows.Forms.Label();
             this.latvanyossagMentesBtn = new System.Windows.Forms.Button();
             this.arLbl = new System.Windows.Forms.Label();
             this.latvanyossagNevLbl = new System.Windows.Forms.Label();
             this.arNUD = new System.Windows.Forms.NumericUpDown();
             this.latvanyossagNevTB = new System.Windows.Forms.TextBox();
-            this.leirasLbl = new System.Windows.Forms.Label();
-            this.leirasTB = new System.Windows.Forms.TextBox();
-            this.varosokCOB = new System.Windows.Forms.ComboBox();
-            this.varosCBLbl = new System.Windows.Forms.Label();
             this.varosokLstBx = new System.Windows.Forms.ListBox();
+            this.torlesBtn = new System.Windows.Forms.Button();
+            this.modositasBtn = new System.Windows.Forms.Button();
+            this.mMentesBtn = new System.Windows.Forms.Button();
+            this.latvanyossagokLstBx = new System.Windows.Forms.ListBox();
             this.ujvarosGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lakossagNUD)).BeginInit();
             this.latvanyossagGB.SuspendLayout();
@@ -53,6 +57,7 @@
             // 
             // ujvarosGB
             // 
+            this.ujvarosGB.Controls.Add(this.mMentesBtn);
             this.ujvarosGB.Controls.Add(this.ujVarosBtn);
             this.ujvarosGB.Controls.Add(this.lakossagLbl);
             this.ujvarosGB.Controls.Add(this.varosNevLbl);
@@ -65,12 +70,33 @@
             this.ujvarosGB.TabStop = false;
             this.ujvarosGB.Text = "Új város:";
             // 
-            // varosTB
+            // ujVarosBtn
             // 
-            this.varosTB.Location = new System.Drawing.Point(82, 37);
-            this.varosTB.Name = "varosTB";
-            this.varosTB.Size = new System.Drawing.Size(184, 20);
-            this.varosTB.TabIndex = 0;
+            this.ujVarosBtn.Location = new System.Drawing.Point(82, 127);
+            this.ujVarosBtn.Name = "ujVarosBtn";
+            this.ujVarosBtn.Size = new System.Drawing.Size(100, 28);
+            this.ujVarosBtn.TabIndex = 4;
+            this.ujVarosBtn.Text = "Mentés";
+            this.ujVarosBtn.UseVisualStyleBackColor = true;
+            this.ujVarosBtn.Click += new System.EventHandler(this.ujVarosBtn_Click);
+            // 
+            // lakossagLbl
+            // 
+            this.lakossagLbl.AutoSize = true;
+            this.lakossagLbl.Location = new System.Drawing.Point(16, 82);
+            this.lakossagLbl.Name = "lakossagLbl";
+            this.lakossagLbl.Size = new System.Drawing.Size(84, 13);
+            this.lakossagLbl.TabIndex = 3;
+            this.lakossagLbl.Text = "Lakosok száma:";
+            // 
+            // varosNevLbl
+            // 
+            this.varosNevLbl.AutoSize = true;
+            this.varosNevLbl.Location = new System.Drawing.Point(16, 37);
+            this.varosNevLbl.Name = "varosNevLbl";
+            this.varosNevLbl.Size = new System.Drawing.Size(64, 13);
+            this.varosNevLbl.TabIndex = 2;
+            this.varosNevLbl.Text = "Város neve:";
             // 
             // lakossagNUD
             // 
@@ -89,33 +115,12 @@
             this.lakossagNUD.Size = new System.Drawing.Size(146, 20);
             this.lakossagNUD.TabIndex = 1;
             // 
-            // varosNevLbl
+            // varosTB
             // 
-            this.varosNevLbl.AutoSize = true;
-            this.varosNevLbl.Location = new System.Drawing.Point(16, 37);
-            this.varosNevLbl.Name = "varosNevLbl";
-            this.varosNevLbl.Size = new System.Drawing.Size(64, 13);
-            this.varosNevLbl.TabIndex = 2;
-            this.varosNevLbl.Text = "Város neve:";
-            // 
-            // lakossagLbl
-            // 
-            this.lakossagLbl.AutoSize = true;
-            this.lakossagLbl.Location = new System.Drawing.Point(16, 82);
-            this.lakossagLbl.Name = "lakossagLbl";
-            this.lakossagLbl.Size = new System.Drawing.Size(84, 13);
-            this.lakossagLbl.TabIndex = 3;
-            this.lakossagLbl.Text = "Lakosok száma:";
-            // 
-            // ujVarosBtn
-            // 
-            this.ujVarosBtn.Location = new System.Drawing.Point(82, 127);
-            this.ujVarosBtn.Name = "ujVarosBtn";
-            this.ujVarosBtn.Size = new System.Drawing.Size(100, 28);
-            this.ujVarosBtn.TabIndex = 4;
-            this.ujVarosBtn.Text = "Mentés";
-            this.ujVarosBtn.UseVisualStyleBackColor = true;
-            this.ujVarosBtn.Click += new System.EventHandler(this.ujVarosBtn_Click);
+            this.varosTB.Location = new System.Drawing.Point(82, 37);
+            this.varosTB.Name = "varosTB";
+            this.varosTB.Size = new System.Drawing.Size(184, 20);
+            this.varosTB.TabIndex = 0;
             // 
             // latvanyossagGB
             // 
@@ -134,6 +139,40 @@
             this.latvanyossagGB.TabIndex = 5;
             this.latvanyossagGB.TabStop = false;
             this.latvanyossagGB.Text = "Új látványosság:";
+            // 
+            // varosCBLbl
+            // 
+            this.varosCBLbl.AutoSize = true;
+            this.varosCBLbl.Location = new System.Drawing.Point(16, 172);
+            this.varosCBLbl.Name = "varosCBLbl";
+            this.varosCBLbl.Size = new System.Drawing.Size(37, 13);
+            this.varosCBLbl.TabIndex = 8;
+            this.varosCBLbl.Text = "Város:";
+            // 
+            // varosokCOB
+            // 
+            this.varosokCOB.FormattingEnabled = true;
+            this.varosokCOB.Location = new System.Drawing.Point(83, 169);
+            this.varosokCOB.Name = "varosokCOB";
+            this.varosokCOB.Size = new System.Drawing.Size(183, 21);
+            this.varosokCOB.TabIndex = 7;
+            // 
+            // leirasTB
+            // 
+            this.leirasTB.Location = new System.Drawing.Point(82, 74);
+            this.leirasTB.Multiline = true;
+            this.leirasTB.Name = "leirasTB";
+            this.leirasTB.Size = new System.Drawing.Size(184, 49);
+            this.leirasTB.TabIndex = 6;
+            // 
+            // leirasLbl
+            // 
+            this.leirasLbl.AutoSize = true;
+            this.leirasLbl.Location = new System.Drawing.Point(17, 77);
+            this.leirasLbl.Name = "leirasLbl";
+            this.leirasLbl.Size = new System.Drawing.Size(40, 13);
+            this.leirasLbl.TabIndex = 5;
+            this.leirasLbl.Text = "Leírás:";
             // 
             // latvanyossagMentesBtn
             // 
@@ -187,53 +226,64 @@
             this.latvanyossagNevTB.Size = new System.Drawing.Size(184, 20);
             this.latvanyossagNevTB.TabIndex = 0;
             // 
-            // leirasLbl
-            // 
-            this.leirasLbl.AutoSize = true;
-            this.leirasLbl.Location = new System.Drawing.Point(17, 77);
-            this.leirasLbl.Name = "leirasLbl";
-            this.leirasLbl.Size = new System.Drawing.Size(40, 13);
-            this.leirasLbl.TabIndex = 5;
-            this.leirasLbl.Text = "Leírás:";
-            // 
-            // leirasTB
-            // 
-            this.leirasTB.Location = new System.Drawing.Point(82, 74);
-            this.leirasTB.Multiline = true;
-            this.leirasTB.Name = "leirasTB";
-            this.leirasTB.Size = new System.Drawing.Size(184, 49);
-            this.leirasTB.TabIndex = 6;
-            // 
-            // varosokCOB
-            // 
-            this.varosokCOB.FormattingEnabled = true;
-            this.varosokCOB.Location = new System.Drawing.Point(83, 169);
-            this.varosokCOB.Name = "varosokCOB";
-            this.varosokCOB.Size = new System.Drawing.Size(183, 21);
-            this.varosokCOB.TabIndex = 7;
-            // 
-            // varosCBLbl
-            // 
-            this.varosCBLbl.AutoSize = true;
-            this.varosCBLbl.Location = new System.Drawing.Point(16, 172);
-            this.varosCBLbl.Name = "varosCBLbl";
-            this.varosCBLbl.Size = new System.Drawing.Size(37, 13);
-            this.varosCBLbl.TabIndex = 8;
-            this.varosCBLbl.Text = "Város:";
-            // 
             // varosokLstBx
             // 
             this.varosokLstBx.FormattingEnabled = true;
             this.varosokLstBx.Location = new System.Drawing.Point(314, 20);
             this.varosokLstBx.Name = "varosokLstBx";
-            this.varosokLstBx.Size = new System.Drawing.Size(258, 160);
+            this.varosokLstBx.Size = new System.Drawing.Size(234, 160);
             this.varosokLstBx.TabIndex = 6;
+            this.varosokLstBx.SelectedIndexChanged += new System.EventHandler(this.varosokLstBx_SelectedIndexChanged);
+            // 
+            // torlesBtn
+            // 
+            this.torlesBtn.Location = new System.Drawing.Point(554, 152);
+            this.torlesBtn.Name = "torlesBtn";
+            this.torlesBtn.Size = new System.Drawing.Size(100, 28);
+            this.torlesBtn.TabIndex = 5;
+            this.torlesBtn.Text = "Törlés";
+            this.torlesBtn.UseVisualStyleBackColor = true;
+            this.torlesBtn.Visible = false;
+            this.torlesBtn.Click += new System.EventHandler(this.torlesBtn_Click);
+            // 
+            // modositasBtn
+            // 
+            this.modositasBtn.Location = new System.Drawing.Point(554, 118);
+            this.modositasBtn.Name = "modositasBtn";
+            this.modositasBtn.Size = new System.Drawing.Size(100, 28);
+            this.modositasBtn.TabIndex = 7;
+            this.modositasBtn.Text = "Módosítás";
+            this.modositasBtn.UseVisualStyleBackColor = true;
+            this.modositasBtn.Visible = false;
+            this.modositasBtn.Click += new System.EventHandler(this.modositasBtn_Click);
+            // 
+            // mMentesBtn
+            // 
+            this.mMentesBtn.Location = new System.Drawing.Point(73, 127);
+            this.mMentesBtn.Name = "mMentesBtn";
+            this.mMentesBtn.Size = new System.Drawing.Size(136, 28);
+            this.mMentesBtn.TabIndex = 5;
+            this.mMentesBtn.Text = "Módosítások mentése";
+            this.mMentesBtn.UseVisualStyleBackColor = true;
+            this.mMentesBtn.Visible = false;
+            this.mMentesBtn.Click += new System.EventHandler(this.mMentesBtn_Click);
+            // 
+            // latvanyossagokLstBx
+            // 
+            this.latvanyossagokLstBx.FormattingEnabled = true;
+            this.latvanyossagokLstBx.Location = new System.Drawing.Point(314, 201);
+            this.latvanyossagokLstBx.Name = "latvanyossagokLstBx";
+            this.latvanyossagokLstBx.Size = new System.Drawing.Size(234, 160);
+            this.latvanyossagokLstBx.TabIndex = 8;
             // 
             // latvanyossagokApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.latvanyossagokLstBx);
+            this.Controls.Add(this.modositasBtn);
+            this.Controls.Add(this.torlesBtn);
             this.Controls.Add(this.varosokLstBx);
             this.Controls.Add(this.latvanyossagGB);
             this.Controls.Add(this.ujvarosGB);
@@ -268,6 +318,10 @@
         private System.Windows.Forms.Label varosCBLbl;
         private System.Windows.Forms.ComboBox varosokCOB;
         private System.Windows.Forms.ListBox varosokLstBx;
+        private System.Windows.Forms.Button torlesBtn;
+        private System.Windows.Forms.Button modositasBtn;
+        private System.Windows.Forms.Button mMentesBtn;
+        private System.Windows.Forms.ListBox latvanyossagokLstBx;
     }
 }
 
