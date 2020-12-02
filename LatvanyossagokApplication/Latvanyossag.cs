@@ -23,14 +23,14 @@ namespace LatvanyossagokApplication
 
         public string ToString()
         {
-            string s;
+            string s=nev;
             if (ar > 0)
             {
-                s = nev + " - " + ar + " Ft ";
+                s += " - " + ar + " Ft ";
             }
             else
             {
-                s= nev + " - Ingyenes" + " Ft ";
+                s+=" - Ingyenes" + " Ft ";
             }
             return s;
         }

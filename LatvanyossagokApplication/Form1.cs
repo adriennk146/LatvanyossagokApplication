@@ -185,6 +185,23 @@ namespace LatvanyossagokApplication
             return varos_id;
         }
 
+        private int GetIDLatvanyossag(string nev)
+        {
+            string sql = @"SELECT id FROM latvanyossagok WHERE nev LIKE '" + nev + "';";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            int id=-1;
+            using (var reader = comm.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    id = reader.GetInt32("id");
+                }
+                
+            }
+            return id;
+        }
+
         private void latvanyossagHozzaadAdatbazishoz(string nev, string leiras, int ar, int varos_id)
         {
             string sql = @"INSERT INTO latvanyossagok (nev,leiras, ar,varos_id) VALUES ('" + nev + "','" + leiras + "',"+ar+",'"+varos_id+"');";
@@ -204,23 +221,9 @@ namespace LatvanyossagokApplication
 
         private void varosokLstBx_SelectedIndexChanged(object sender, EventArgs e)
         {
-            latvanyossagokLstBx.Items.Clear();
             torlesBtn.Visible = true;
             modositasBtn.Visible = true;
-            string value = varosokLstBx.SelectedItem.ToString();
-            string[] adatok = value.Split(' ');
-            string nev = adatok[0];
-            string sql = @"SELECT nev, leiras, ar, varos_id FROM latvanyossagok WHERE varos_id =" + GetID(nev) + ";";
-            var comm = conn.CreateCommand();
-            comm.CommandText = sql;
-            using (var mentes = comm.ExecuteReader())
-            {
-                while (mentes.Read())
-                {
-                    Latvanyossag l1 = new Latvanyossag(mentes.GetString("nev"), mentes.GetString("leiras"), mentes.GetInt32("ar"), mentes.GetInt32("varos_id"));
-                    latvanyossagokLstBx.Items.Add(l1.ToString());
-                }
-            }
+            latvanyossagokKiiratas();
 
 
         }
@@ -292,9 +295,89 @@ namespace LatvanyossagokApplication
             }
         }
 
+        private void latvanyossagokKiiratas()
+        {
+            latvanyossagokLstBx.Items.Clear();
+            string value = varosokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev = adatok[0];
+            string sql = @"SELECT nev, leiras, ar, varos_id FROM latvanyossagok WHERE varos_id =" + GetID(nev) + ";";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var mentes = comm.ExecuteReader())
+            {
+                while (mentes.Read())
+                {
+                    Latvanyossag l1 = new Latvanyossag(mentes.GetString("nev"), mentes.GetString("leiras"), mentes.GetInt32("ar"), mentes.GetInt32("varos_id"));
+                    latvanyossagokLstBx.Items.Add(l1.ToString());
+                }
+            }
+        }
+
         private void latvanyossagokLstBx_SelectedIndexChanged(object sender, EventArgs e)
         {
+            latvanyossagTorlesBtn.Visible = true;
+            latvanyossagModositasBtn.Visible = true;
+        }
 
+        private void latvanyossagTorlesBtn_Click(object sender, EventArgs e)
+        {
+            string value = latvanyossagokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev;
+            if(adatok.Length==4)
+            {
+                nev = adatok[0];
+            }
+            else
+            {
+                nev = adatok[0];
+                for(int i = 1; i < adatok.Length - 4; i++)
+                {
+                    nev += " " + adatok[i];
+                }
+            }
+            string sql = @"DELETE FROM latvanyossagok WHERE nev LIKE '" + nev + "';";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var reader = comm.ExecuteReader()) ;
+            latvanyossagokKiiratas();
+            latvanyossagTorlesBtn.Visible = false;
+            latvanyossagModositasBtn.Visible = false;
+        }
+
+        private void latvanyossagModositasBtn_Click(object sender, EventArgs e)
+        {
+            latvanyossagMentesBtn.Visible = false;
+            latvanyossagokmMentesBtn.Visible = true;
+            string value = latvanyossagokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev;
+            if (adatok.Length == 4)
+            {
+                nev = adatok[0];
+            }
+            else
+            {
+                nev = adatok[0];
+                for (int i = 1; i < adatok.Length - 4; i++)
+                {
+                    nev += " " + adatok[i];
+                }
+            }
+            string sql = @"SELECT nev, leiras, ar, varos_id
+                            FROM latvanyossagok
+                            WHERE nev LIKE '" + nev + "';";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var reader = comm.ExecuteReader())
+            {
+                reader.Read();
+                latvanyossagNevTB.Text = reader.GetString("nev");
+                leirasTB.Text = reader.GetString("leiras");
+                arNUD.Value = reader.GetInt32("ar");
+                
+            }
         }
     }
 }

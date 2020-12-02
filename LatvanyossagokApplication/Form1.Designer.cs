@@ -290,6 +290,7 @@
             this.latvanyossagTorlesBtn.Text = "Törlés";
             this.latvanyossagTorlesBtn.UseVisualStyleBackColor = true;
             this.latvanyossagTorlesBtn.Visible = false;
+            this.latvanyossagTorlesBtn.Click += new System.EventHandler(this.latvanyossagTorlesBtn_Click);
             // 
             // latvanyossagModositasBtn
             // 
@@ -300,6 +301,7 @@
             this.latvanyossagModositasBtn.Text = "Módosítás";
             this.latvanyossagModositasBtn.UseVisualStyleBackColor = true;
             this.latvanyossagModositasBtn.Visible = false;
+            this.latvanyossagModositasBtn.Click += new System.EventHandler(this.latvanyossagModositasBtn_Click);
             // 
             // latvanyossagokmMentesBtn
             // 
