@@ -49,6 +49,9 @@
             this.modositasBtn = new System.Windows.Forms.Button();
             this.mMentesBtn = new System.Windows.Forms.Button();
             this.latvanyossagokLstBx = new System.Windows.Forms.ListBox();
+            this.latvanyossagTorlesBtn = new System.Windows.Forms.Button();
+            this.latvanyossagModositasBtn = new System.Windows.Forms.Button();
+            this.latvanyossagokmMentesBtn = new System.Windows.Forms.Button();
             this.ujvarosGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lakossagNUD)).BeginInit();
             this.latvanyossagGB.SuspendLayout();
@@ -124,6 +127,7 @@
             // 
             // latvanyossagGB
             // 
+            this.latvanyossagGB.Controls.Add(this.latvanyossagokmMentesBtn);
             this.latvanyossagGB.Controls.Add(this.varosCBLbl);
             this.latvanyossagGB.Controls.Add(this.varosokCOB);
             this.latvanyossagGB.Controls.Add(this.leirasTB);
@@ -273,14 +277,47 @@
             this.latvanyossagokLstBx.FormattingEnabled = true;
             this.latvanyossagokLstBx.Location = new System.Drawing.Point(314, 201);
             this.latvanyossagokLstBx.Name = "latvanyossagokLstBx";
-            this.latvanyossagokLstBx.Size = new System.Drawing.Size(234, 160);
+            this.latvanyossagokLstBx.Size = new System.Drawing.Size(234, 238);
             this.latvanyossagokLstBx.TabIndex = 8;
+            this.latvanyossagokLstBx.SelectedIndexChanged += new System.EventHandler(this.latvanyossagokLstBx_SelectedIndexChanged);
+            // 
+            // latvanyossagTorlesBtn
+            // 
+            this.latvanyossagTorlesBtn.Location = new System.Drawing.Point(554, 410);
+            this.latvanyossagTorlesBtn.Name = "latvanyossagTorlesBtn";
+            this.latvanyossagTorlesBtn.Size = new System.Drawing.Size(100, 28);
+            this.latvanyossagTorlesBtn.TabIndex = 9;
+            this.latvanyossagTorlesBtn.Text = "Törlés";
+            this.latvanyossagTorlesBtn.UseVisualStyleBackColor = true;
+            this.latvanyossagTorlesBtn.Visible = false;
+            // 
+            // latvanyossagModositasBtn
+            // 
+            this.latvanyossagModositasBtn.Location = new System.Drawing.Point(554, 376);
+            this.latvanyossagModositasBtn.Name = "latvanyossagModositasBtn";
+            this.latvanyossagModositasBtn.Size = new System.Drawing.Size(100, 28);
+            this.latvanyossagModositasBtn.TabIndex = 10;
+            this.latvanyossagModositasBtn.Text = "Módosítás";
+            this.latvanyossagModositasBtn.UseVisualStyleBackColor = true;
+            this.latvanyossagModositasBtn.Visible = false;
+            // 
+            // latvanyossagokmMentesBtn
+            // 
+            this.latvanyossagokmMentesBtn.Location = new System.Drawing.Point(60, 209);
+            this.latvanyossagokmMentesBtn.Name = "latvanyossagokmMentesBtn";
+            this.latvanyossagokmMentesBtn.Size = new System.Drawing.Size(136, 28);
+            this.latvanyossagokmMentesBtn.TabIndex = 6;
+            this.latvanyossagokmMentesBtn.Text = "Módosítások mentése";
+            this.latvanyossagokmMentesBtn.UseVisualStyleBackColor = true;
+            this.latvanyossagokmMentesBtn.Visible = false;
             // 
             // latvanyossagokApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.latvanyossagModositasBtn);
+            this.Controls.Add(this.latvanyossagTorlesBtn);
             this.Controls.Add(this.latvanyossagokLstBx);
             this.Controls.Add(this.modositasBtn);
             this.Controls.Add(this.torlesBtn);
@@ -322,6 +359,9 @@
         private System.Windows.Forms.Button modositasBtn;
         private System.Windows.Forms.Button mMentesBtn;
         private System.Windows.Forms.ListBox latvanyossagokLstBx;
+        private System.Windows.Forms.Button latvanyossagokmMentesBtn;
+        private System.Windows.Forms.Button latvanyossagTorlesBtn;
+        private System.Windows.Forms.Button latvanyossagModositasBtn;
     }
 }
 

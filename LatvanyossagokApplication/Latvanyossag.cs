@@ -11,19 +11,28 @@ namespace LatvanyossagokApplication
         string nev;
         string leiras;
         int ar;
-        string varos;
+        int varos_id;
 
-        public Latvanyossag(string nev, string leiras, int ar, string varos)
+        public Latvanyossag(string nev, string leiras, int ar, int varos_id)
         {
             this.nev = nev;
             this.leiras = leiras;
             this.ar = ar;
-            this.varos = varos;
+            this.varos_id = varos_id;
         }
 
-        public string toString()
+        public string ToString()
         {
-            return nev + "\t" + leiras + "\t" + ar + " Ft \t" + varos;
+            string s;
+            if (ar > 0)
+            {
+                s = nev + " - " + ar + " Ft ";
+            }
+            else
+            {
+                s= nev + " - Ingyenes" + " Ft ";
+            }
+            return s;
         }
     }
 }

@@ -90,6 +90,14 @@ namespace LatvanyossagokApplication
             string varos;
             int lakossag;
             bool mehet = true;
+            foreach(string s in varosokLstBx.Items)
+            {
+                if (varosTB.Text.Equals(s))
+                {
+                    mehet = false;
+                    MessageBox.Show("Van már ilyen nevű város!");
+                }
+            }
             if (varosTB.Text == "")
             {
                 mehet = false;
@@ -153,15 +161,68 @@ namespace LatvanyossagokApplication
                 leiras = leirasTB.Text;
                 ar = Convert.ToInt32(arNUD.Value);
                 varos = varosokCOB.SelectedItem.ToString();
-                Latvanyossag l1 = new Latvanyossag(nev, leiras, ar, varos);
+                int varos_id = GetID(varos);
+                Latvanyossag l1 = new Latvanyossag(nev, leiras, ar, varos_id);
+                latvanyossagHozzaadAdatbazishoz(nev, leiras, ar, varos_id);
+                latvanyossagNevTB.Text = "";
+                leirasTB.Text = "";
+                arNUD.Value = 0;
+                varosokCOB.SelectedItem = default;
             }
         }
-        
+
+        private int GetID(string nev)
+        {
+            string sql = @"SELECT id FROM varosok WHERE nev LIKE '" + nev + "';";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            int varos_id;
+            using (var reader = comm.ExecuteReader())
+            {
+                reader.Read();
+                varos_id = reader.GetInt32("id");
+            }
+            return varos_id;
+        }
+
+        private void latvanyossagHozzaadAdatbazishoz(string nev, string leiras, int ar, int varos_id)
+        {
+            string sql = @"INSERT INTO latvanyossagok (nev,leiras, ar,varos_id) VALUES ('" + nev + "','" + leiras + "',"+ar+",'"+varos_id+"');";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var mentes = comm.ExecuteReader()) ;
+            string value = varosokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev1 = adatok[0];
+            if (GetID(nev1) == varos_id)
+            {
+                Latvanyossag l1 = new Latvanyossag(nev, leiras, ar, varos_id);
+                latvanyossagokLstBx.Items.Add(l1.ToString());
+            }
+            
+        }
+
         private void varosokLstBx_SelectedIndexChanged(object sender, EventArgs e)
         {
+            latvanyossagokLstBx.Items.Clear();
             torlesBtn.Visible = true;
             modositasBtn.Visible = true;
-           
+            string value = varosokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev = adatok[0];
+            string sql = @"SELECT nev, leiras, ar, varos_id FROM latvanyossagok WHERE varos_id =" + GetID(nev) + ";";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var mentes = comm.ExecuteReader())
+            {
+                while (mentes.Read())
+                {
+                    Latvanyossag l1 = new Latvanyossag(mentes.GetString("nev"), mentes.GetString("leiras"), mentes.GetInt32("ar"), mentes.GetInt32("varos_id"));
+                    latvanyossagokLstBx.Items.Add(l1.ToString());
+                }
+            }
+
+
         }
 
         private void torlesBtn_Click(object sender, EventArgs e)
@@ -229,6 +290,11 @@ namespace LatvanyossagokApplication
                 mMentesBtn.Visible = false;
                 ujVarosBtn.Visible = true;
             }
+        }
+
+        private void latvanyossagokLstBx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
