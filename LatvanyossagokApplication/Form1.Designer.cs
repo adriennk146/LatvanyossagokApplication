@@ -312,6 +312,7 @@
             this.latvanyossagokmMentesBtn.Text = "Módosítások mentése";
             this.latvanyossagokmMentesBtn.UseVisualStyleBackColor = true;
             this.latvanyossagokmMentesBtn.Visible = false;
+            this.latvanyossagokmMentesBtn.Click += new System.EventHandler(this.latvanyossagokmMentesBtn_Click);
             // 
             // latvanyossagokApp
             // 

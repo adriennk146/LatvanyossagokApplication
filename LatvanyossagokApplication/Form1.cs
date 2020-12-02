@@ -185,22 +185,6 @@ namespace LatvanyossagokApplication
             return varos_id;
         }
 
-        private int GetIDLatvanyossag(string nev)
-        {
-            string sql = @"SELECT id FROM latvanyossagok WHERE nev LIKE '" + nev + "';";
-            var comm = conn.CreateCommand();
-            comm.CommandText = sql;
-            int id=-1;
-            using (var reader = comm.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    id = reader.GetInt32("id");
-                }
-                
-            }
-            return id;
-        }
 
         private void latvanyossagHozzaadAdatbazishoz(string nev, string leiras, int ar, int varos_id)
         {
@@ -377,6 +361,70 @@ namespace LatvanyossagokApplication
                 leirasTB.Text = reader.GetString("leiras");
                 arNUD.Value = reader.GetInt32("ar");
                 
+            }
+        }
+
+        private void latvanyossagokmMentesBtn_Click(object sender, EventArgs e)
+        {
+            string value = latvanyossagokLstBx.SelectedItem.ToString();
+            string[] adatok = value.Split(' ');
+            string nev;
+            if (adatok.Length == 4)
+            {
+                nev = adatok[0];
+            }
+            else
+            {
+                nev = adatok[0];
+                for (int i = 1; i < adatok.Length - 4; i++)
+                {
+                    nev += " " + adatok[i];
+                }
+            }
+            string nev1;
+            string leiras;
+            int ar;
+            string varos;
+            bool mehet = true;
+            if (latvanyossagNevTB.Text == "")
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg nevet!");
+            }
+            if (leirasTB.Text == "")
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg leírást!");
+            }
+            if (arNUD == null)
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg árat!");
+            }
+            if (varosokCOB.SelectedItem == null)
+            {
+                mehet = false;
+                MessageBox.Show("Nem választott várost!");
+            }
+            if (mehet)
+            {
+                nev1 = latvanyossagNevTB.Text;
+                leiras = leirasTB.Text;
+                ar = Convert.ToInt32(arNUD.Value);
+                varos = varosokCOB.SelectedItem.ToString();
+                int varos_id = GetID(varos);
+                string sql = @"UPDATE latvanyossagok SET nev ='" +nev1 + "', leiras ='" + leiras + "', ar = "+ar+", varos_id ='"+varos_id+"' " +
+                    "WHERE nev LIKE '" + nev + "';";
+                var comm = conn.CreateCommand();
+                comm.CommandText = sql;
+                using (var reader = comm.ExecuteReader()) ;
+                latvanyossagokKiiratas();
+                latvanyossagNevTB.Text = "";
+                leirasTB.Text = "";
+                arNUD.Value = 0;
+                varosokCOB.SelectedItem = default;
+                latvanyossagokmMentesBtn.Visible = false;
+                latvanyossagMentesBtn.Visible = true;
             }
         }
     }
