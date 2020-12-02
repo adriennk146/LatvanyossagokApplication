@@ -27,8 +27,16 @@ namespace LatvanyossagokApplication
                 MessageBox.Show("Hiba az adatbázis elérése során: " + msqle);
                 this.Close();
             }
+            this.FormClosed += (sender, args) =>
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+
+            };
             TablazatLetrehoz();
-           
+            VarosAdatokBetolt();
 
         }
 
@@ -52,6 +60,87 @@ namespace LatvanyossagokApplication
             comm.CommandText=sql;
             var reader = comm.ExecuteReader();
             reader.Close();
+        }
+
+        void VarosAdatokBetolt()
+        {
+            string sql = @"SELECT nev,lakossag 
+                            FROM varosok";
+
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var reader = comm.ExecuteReader())
+            {
+                varosokLstBx.Items.Clear();
+                while (reader.Read())
+                {
+                    string nev = reader.GetString("nev");
+                    int lakossag = reader.GetInt32("lakossag");
+                    Varos v1 = new Varos(nev, lakossag);
+                    varosokLstBx.Items.Add(v1);
+                }
+            }
+
+        }
+
+        private void ujVarosBtn_Click(object sender, EventArgs e)
+        {
+            string varos;
+            int lakossag;
+            bool mehet = true;
+            if (varosTB.Text == "")
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg város nevet!");
+            }
+            if(lakossagNUD.Value == null || lakossagNUD.Value == 0)
+            {
+                MessageBox.Show("Nem adta meg a város lakosságát!");
+                mehet = false;
+            }
+            if (mehet)
+            {
+                varos = varosTB.Text;
+                lakossag = Convert.ToInt32(lakossagNUD.Value);
+                Varos v1 = new Varos(varos, lakossag);
+            }
+        }
+
+        private void latvanyossagMentesBtn_Click(object sender, EventArgs e)
+        {
+            string nev;
+            string leiras;
+            int ar;
+            string varos;
+            bool mehet = true;
+            if(latvanyossagNevTB.Text == "")
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg nevet!");
+            }
+            if (leirasTB.Text == "")
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg leírást!");
+            }
+            if(arNUD == null)
+            {
+                mehet = false;
+                MessageBox.Show("Nem adott meg árat!");
+            }
+            if (varosokCOB.SelectedItem == null)
+            {
+                mehet = false;
+                MessageBox.Show("Nem választott várost!");
+            }
+            if (mehet)
+            {
+                nev = latvanyossagNevTB.Text;
+                leiras = leirasTB.Text;
+                ar = Convert.ToInt32(arNUD.Value);
+                varos = varosokCOB.SelectedItem.ToString();
+                Latvanyossag l1 = new Latvanyossag(nev, leiras, ar, varos);
+            }
         }
     }
 }
