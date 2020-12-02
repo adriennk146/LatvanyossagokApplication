@@ -57,9 +57,8 @@ namespace LatvanyossagokApplication
                 ADD FOREIGN KEY (varos_id) REFERENCES varosok(id);";
 
             var comm = this.conn.CreateCommand();
-            comm.CommandText=sql;
-            var reader = comm.ExecuteReader();
-            reader.Close();
+            comm.CommandText = sql;
+            using (var reader = comm.ExecuteReader());
         }
 
         void VarosAdatokBetolt()
@@ -77,8 +76,9 @@ namespace LatvanyossagokApplication
                     string nev = reader.GetString("nev");
                     int lakossag = reader.GetInt32("lakossag");
                     Varos v1 = new Varos(nev, lakossag);
-                    varosokLstBx.Items.Add(v1);
+                    varosokLstBx.Items.Add(v1.toString());
                 }
+                reader.Close();
             }
 
         }
@@ -93,7 +93,7 @@ namespace LatvanyossagokApplication
                 mehet = false;
                 MessageBox.Show("Nem adott meg város nevet!");
             }
-            if(lakossagNUD.Value == null || lakossagNUD.Value == 0)
+            if (lakossagNUD.Value == null || lakossagNUD.Value == 0)
             {
                 MessageBox.Show("Nem adta meg a város lakosságát!");
                 mehet = false;
@@ -103,7 +103,17 @@ namespace LatvanyossagokApplication
                 varos = varosTB.Text;
                 lakossag = Convert.ToInt32(lakossagNUD.Value);
                 Varos v1 = new Varos(varos, lakossag);
+                varosHozzaadAdatbazishoz(varos, lakossag);
             }
+        }
+
+        private void varosHozzaadAdatbazishoz(string varos, int lakossag)
+        {
+            string sql = @"INSERT INTO varosok (nev,lakossag) VALUES ('" + varos + "'," + lakossag + ");";
+            var comm = conn.CreateCommand();
+            comm.CommandText = sql;
+            using (var mentes = comm.ExecuteReader());
+                VarosAdatokBetolt();
         }
 
         private void latvanyossagMentesBtn_Click(object sender, EventArgs e)

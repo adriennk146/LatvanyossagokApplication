@@ -22,7 +22,7 @@ namespace LatvanyossagokApplication
 
         public string toString()
         {
-            return this.nev + "\t" + this.lakossag;
+            return this.nev + " - Lakosság: " + this.lakossag+" fő";
         }
     }
 }
